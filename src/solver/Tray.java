@@ -70,6 +70,9 @@ public class Tray {
 	}
 	
 	private void addToArray(Block b) {
+		if (Debug.addBlock()) {
+			System.out.print("Adding block " + b + "\nBefore:\n" + this);
+		}
 		int row = b.getRow();
 		int col = b.getCol();
 		for( int i = row; i < row + b.getLength(); i++ ) {
@@ -79,6 +82,9 @@ public class Tray {
 				}
 				array[i][j]	= b;
 			}
+		}
+		if (Debug.addBlock()) {
+			System.out.println("After:\n" + this);
 		}
 	}
 

@@ -59,7 +59,8 @@ public class BlocksProblem implements Problem<TrayState> {
 	private TrayState makeNextState(TrayState state, Move move) {
 		TrayState nextState = new TrayState(state);
 		Block block = move.getBlock();
-		assert(nextState.remove(block));
+		boolean blockExisted = nextState.remove(block);
+		assert(blockExisted);
 	
 		Block movedBlock = new Block(block);
 		movedBlock.moveBlock(move.getDirection());

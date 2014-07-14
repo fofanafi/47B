@@ -11,12 +11,11 @@ import solver.TrayState;
 import ai.Config;
 import ai.Heuristic;
 import ai.Search;
+import basic.Block;
 import basic.Direction;
 import basic.Move;
 
 public class Solver {
-	
-	private static Debug debug;
 	private static Tray initialTray;
 	private static Tray goalTray;
 
@@ -40,12 +39,12 @@ public class Solver {
 			return;
 		}
 		
-		if(debug.printInitialInfo()) {
+		if(Debug.printInitialInfo()) {
 			System.out.print("Initial Tray:\n" + initialTray.printAllToString());
 			System.out.println("Goal:\n" + goalTray.printAllToString());
 		}
 		
-		if(debug.play()) {
+		if(Debug.play()) {
 			play();
     		System.exit(0);
 		}
@@ -59,16 +58,28 @@ public class Solver {
 		
 		// If no solution, exit
 		if (solution == null) {
-			System.out.println("no solution");
+			if (Debug.voiceover()) {
+				System.out.println("no solution");
+			}
 			System.exit(1);
 		} else { // Else print the list of moves
 			assert(problem.reachedGoal(solution.getState()));
 			for (Move move : solution.getMoves()) {
+				Block b = move.getBlock();
+				int row = b.getRow();
+				int col = b.getCol();
 				initialTray.move(move);
-				System.out.println(initialTray);
-				System.in.read(); // wait for enter
+				int newRow = b.getRow();
+				int newCol = b.getCol();
+				System.out.format("%d %d %d %d\n", row, col, newRow, newCol);
+				if (Debug.voiceover()) {
+					System.out.print(initialTray);
+					System.in.read(); // wait for enter
+				}
 			}
-			System.out.println("reached goal");
+			if (Debug.voiceover()) {
+				System.out.println("reached goal");
+			}
 			System.exit(0);
 		}
 	}
@@ -140,7 +151,7 @@ public class Solver {
 			Debug.printOptions();
 			System.exit(0);
 		} else {
-			debug = new Debug(info);
+			Debug.setDebug(info);
 		}
 	}
 
