@@ -1,0 +1,9 @@
+To run the Checker program described in the "Blocks Project" writeup,
+copy the files ~cs47b/lib/Checker.class and ~cs47b/lib/TrayVerifier.class
+to the directory that contains your Solver program.  Run the Checker program
+by sending it the output of your Solver program.  On a UNIX system, you can
+do that with the following command:
+    java Solver init goal | java Checker init goal
+(Init and goal stand for names of files containing the initial and goal 
+configurations, respectively.)
+
